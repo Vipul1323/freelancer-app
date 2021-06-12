@@ -25,7 +25,8 @@ class ProfileController extends Controller
                 'country_code' => ['required', 'string', 'max:255'],
                 'phone' => ['required', 'string', 'max:255'],
                 'password' => ['required', 'string', 'min:8', 'confirmed'],
-                'profile_picture' => ['image|mimes:jpeg,png,jpg,gif,svg|max:2048']
+                'profile_picture' => ['image|mimes:jpeg,png,jpg,gif,svg|max:2048'],
+                'role' => ['required'],
             ]);
             $userObj->name = $formData['name'];
             $userObj->country_code = $formData['country_code'];

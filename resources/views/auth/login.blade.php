@@ -70,7 +70,7 @@
                             <div class="col-md-8 offset-md-4">
                                 <span class="align-item-center">Or</span>
                             </div>
-                            <div class="col-md-8 offset-md-4">
+                            <div class="col-md-8 offset-md-4 mt-3">
                                 <a href="{{ url('google-login') }}" class="btn btn-danger"><i class="fa fa-google" aria-hidden="false"></i> {{ __('Google') }}</a>
                             </div>
                         </div>

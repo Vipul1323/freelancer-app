@@ -103,7 +103,7 @@
 
                             <div class="col-md-6">
                                 <input id="profile_picture" type="file" placeholder="{{ __('profile_picture') }}" class="form-control @error('profile_picture') is-invalid @enderror" name="profile_picture" required autocomplete="profile_picture">
-                                @error('role')
+                                @error('profile_picture')
                                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>
