@@ -57,7 +57,7 @@ class ProjectsController extends Controller
                 }
 
             }
-            $users = User::where('id','!=',Auth::user()->id)->pluck('name','id');
+            $users = User::where('id','!=',Auth::user()->id)->role('Designer')->pluck('name','id');
             return view('projects.new_project',compact('users'));
         } catch (\Exception $ex) {
             $request->session()->flash('error',$ex->getMessage());
@@ -102,6 +102,27 @@ class ProjectsController extends Controller
         } catch (\Exception $ex) {
             $response['error'] = $ex->getMessage();
             return response()->json($response);
+        }
+    }
+
+    public function markCompleted($project_id, Request $request){
+        try {
+             $projectObj = Project::where('project_id',$project_id)
+                ->first();
+            if(empty($projectObj)){
+                $request->session()->flash('error',__('Project not found'));
+                return redirect()->back();
+            }
+            $projectObj->is_completed = true;
+            if($projectObj->save()){
+                $request->session()->flash('status',__('Project marked as completed'));
+            }else{
+                $request->session()->flash('error',__('Unable to mark project as completed. Please try again'));
+            }
+            return redirect('projects');
+        } catch (\Exception $ex) {
+            $request->session()->flash('error',$ex->getMessage());
+            return redirect()->back();
         }
     }
 }

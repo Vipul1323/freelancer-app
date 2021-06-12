@@ -40,7 +40,12 @@
                     			<th>{{ __('Title') }}</th>
                     			<th>{{ __('Due Date') }}</th>
                     			<th>{{ __('Asigned To') }}</th>
-                    			<th>{{ __('Created At') }}</th>
+                                <th>{{ __('Created At') }}</th>
+                                @hasrole('Client')
+                                    <th>{{ __('Action') }}</th>
+                                @else
+                                    <th>{{ __('Status') }}</th>
+                                @endhasrole
                     		</tr>
                     	</thead>
                         <tbody>
@@ -56,6 +61,17 @@
                                         <td>{{ date('d F, Y',strtotime($projectObj->due_date)) }}</td>
                                         <td>{{ isset($projectObj->AssignedTo) && !empty($projectObj->AssignedTo) ?  $projectObj->AssignedTo->name : "N/A" }}</td>
                                         <td>{{ date('d F, Y',strtotime($projectObj->created_at)) }}</td>
+                                        <td>
+                                            @if(Auth::user()->id == $projectObj->user_id && !$projectObj->is_completed && Auth::user()->hasrole('Client'))
+                                                <a href="{{ url('project/mark-completed/'.$projectObj->project_id) }}" title="{{ __('Mark Completed') }}"><i class="fa fa-tick"></i>{{ __('Mark Completed') }}</a>
+                                            @else
+                                                @if($projectObj->is_completed)
+                                                    {{ __('Completed') }}
+                                                @else
+                                                    {{ __('In-Completed') }}
+                                                @endif
+                                            @endif
+                                        </td>
                                     </tr>
                                 @endforeach
                             @endif

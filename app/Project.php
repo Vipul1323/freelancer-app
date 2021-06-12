@@ -3,7 +3,7 @@
 namespace App;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
-
+use App\Events\NewProject;
 class Project extends Model
 {
     protected $table = 'projects';
@@ -28,6 +28,9 @@ class Project extends Model
             if(empty($projectObj->project_id)){
                 $projectObj->project_id    = intval(abs(generateUniqueId().$projectObj->id));
                 $projectObj->save();
+            }
+            if(!empty($projectObj->assigned_to) && isset($projectObj->AssignedTo) && !empty($projectObj->AssignedTo)){
+                event(new NewProject($projectObj));
             }
         });
     }

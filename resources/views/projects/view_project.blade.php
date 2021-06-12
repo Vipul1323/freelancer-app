@@ -111,21 +111,23 @@
 
                 <div class="card-body">
                     <div class="container-fluid  align-items-center flex-wrap flex-sm-nowrap">
-                        {!! Form::open(['url' => 'add-note','id'=>'add_note', 'method' => 'post']) !!}
-                        <table width="100%">
-                            <tbody>
-                                <tr>
-                                    <input type="hidden" name="project_id" value="{{ $projectObj->id }}">
-                                    <td width="80%">
-                                        {{ Form::text("note", old('note'),array('required'=>true,'class' => 'form-control form-input', 'id' => 'note','placeholder' => __('Note'))) }}
-                                    </td>
-                                    <td width="20%">
-                                        {!! Form::submit(__('Add'), array('class' => 'btn btn-primary ml-2','id'=>"add" )) !!}
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                        {!! Form::close() !!}
+                        @if(!$projectObj->is_completed)
+                            {!! Form::open(['url' => 'add-note','id'=>'add_note', 'method' => 'post']) !!}
+                            <table width="100%">
+                                <tbody>
+                                    <tr>
+                                        <input type="hidden" name="project_id" value="{{ $projectObj->id }}">
+                                        <td width="80%">
+                                            {{ Form::text("note", old('note'),array('required'=>true,'class' => 'form-control form-input', 'id' => 'note','placeholder' => __('Note'))) }}
+                                        </td>
+                                        <td width="20%">
+                                            {!! Form::submit(__('Add'), array('class' => 'btn btn-primary ml-2','id'=>"add" )) !!}
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                            {!! Form::close() !!}
+                        @endif
                         <table class="table table-bordered mt-1">
                             <thead>
                                 <tr>
@@ -174,7 +176,7 @@
                         noteHtml += '<td width="20%">'+response.noteObj.postedBy+'</td>';
                         $('#notesTable').append(noteHtml);
                         $('#note_notes').remove();
-                        $('note').val("");
+                        $('#note').val("");
                     }
                     if(response.success){
                         alert(response.success);

@@ -36,4 +36,19 @@ class Email_sender
         }
     }
 
+    public static function newProjectEmail($data = null)
+    {
+        if ($data != null)
+        {
+            $settings                 = [];
+            $settings['data']         = $data;
+            $settings["subject"]      = "You have new project - ".$data['projectObj']->title;
+            $settings['from']         = "noreply@freelancetest.com";
+            $settings['to']           = $data['receiver_email'];
+            $settings['sender']       = env('APP_NAME', 'Freelance Test');
+            $settings['receiver']     = $data['user_name'];
+            Self::sendEmail('emails.new_project', $settings);
+        }
+    }
+
 }
