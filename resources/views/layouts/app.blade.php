@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>@yield('title') | {{ config('app.name', 'Freelancer App') }}</title>
+    <title>@yield('title') | {{ config('app.name', 'Freelance Test') }}</title>
 
     <!-- Scripts -->
     <script src="{{ asset('public/js/app.js') }}" defer></script>
@@ -16,8 +16,11 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <!-- Styles -->
     <link href="{{ asset('public/css/app.css') }}" rel="stylesheet">
+    <script src="https://use.fontawesome.com/cfd8612b4d.js"></script>
+     @yield('css')
 </head>
 <body>
     <div id="app">
@@ -76,5 +79,6 @@
             @yield('content')
         </main>
     </div>
+    @yield('script')
 </body>
 </html>

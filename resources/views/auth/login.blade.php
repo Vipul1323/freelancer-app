@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', __('Login') )
+
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
@@ -62,6 +64,14 @@
                                         {{ __('Forgot Your Password?') }}
                                     </a>
                                 @endif
+                            </div>
+                        </div>
+                        <div class="form-group row mt-10">
+                            <div class="col-md-8 offset-md-4">
+                                <span class="align-item-center">Or</span>
+                            </div>
+                            <div class="col-md-8 offset-md-4">
+                                <a href="{{ url('google-login') }}" class="btn btn-danger"><i class="fa fa-google" aria-hidden="false"></i> {{ __('Google') }}</a>
                             </div>
                         </div>
                     </form>
