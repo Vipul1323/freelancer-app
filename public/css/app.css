@@ -1,5 +1,12 @@
 @import url(https://fonts.googleapis.com/css?family=Nunito);
 
+.text-right{
+    text-align: right !important;
+}
+
+.font-weight-600{
+    font-weight: 600 !important;
+}
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

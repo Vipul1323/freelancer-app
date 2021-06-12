@@ -53,7 +53,7 @@
                             @endif
                         @else
                             <li class="nav-item">
-                                <a class="nav-link {{ Request::segment(1) == 'projects' ? 'active' : '' }}" href="{{ url('projects') }}">{{ __('Projects') }}</a>
+                                <a class="nav-link {{ Request::segment(1) == 'projects' || Request::segment(1) == 'project' ? 'active' : '' }}" href="{{ url('projects') }}">{{ __('Projects') }}</a>
                             </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>

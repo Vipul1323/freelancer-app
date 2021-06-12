@@ -21,6 +21,17 @@ class Project extends Model
         'deleted_at', 'deleted_by',
     ];
 
+    public static function boot(){
+        parent::boot();
+
+        static::created(function ($projectObj) {
+            if(empty($projectObj->project_id)){
+                $projectObj->project_id    = intval(abs(generateUniqueId().$projectObj->id));
+                $projectObj->save();
+            }
+        });
+    }
+
     public function User(){
         return $this->hasOne('App\User','id','user_id');
     }
@@ -35,5 +46,31 @@ class Project extends Model
 
     public function ProjectHasNotes(){
         return $this->hasMany('App\ProjectHasNotes','project_id');;
+    }
+
+    public function syncFiles($request){
+        if($request->hasFile('files')){
+            $files = $request->files;
+            foreach($files as $key => $file){
+                foreach($file as $key1 => $fileObj){
+                    $filename               = time()."-".$fileObj->getClientOriginalName();
+                    $destinationPath        = public_path().'/uploads/projects/';
+                    $upload                 = $fileObj->move($destinationPath, $filename);
+
+                    $projectFilesObj               = new ProjectHasFiles();
+                    $projectFilesObj->project_id   = $this->id;
+                    $projectFilesObj->user_id      = Auth::user()->id;
+                    $projectFilesObj->file_name    = $filename;
+                    $projectFilesObj->save();
+                }
+            }
+        }
+    }
+
+    public function hasAccess(){
+        if(Auth::user()->id == $this->user_id || Auth::user()->id == $this->assigned_to){
+            return true;
+        }
+        return false;
     }
 }

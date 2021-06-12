@@ -241,3 +241,12 @@ function getCountryCode(){
     }
     return $countryCodes;
 }
+
+function generateUniqueId(){
+    $digits = '1234567890';
+    $randomString = '';
+    for ($i = 0; $i < 5; $i++) {
+        $randomString .= $digits[rand(0, strlen($digits) - 1)];
+    }
+    return intval($randomString);
+}

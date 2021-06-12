@@ -30,7 +30,6 @@ Route::middleware(['check-profile'])->group(function () {
     Route::middleware(['role:Client'])->group(function () {
         Route::any('project/new','ProjectsController@newProject')->name('project.new')->middleware('auth');
     });
-
     Route::get('projects','ProjectsController@index')->name('ProjectsController')->middleware('auth');
-
+    Route::any('project/{project_id}','ProjectsController@viewProject')->name('project.view')->middleware('auth');
 });

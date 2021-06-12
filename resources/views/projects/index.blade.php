@@ -47,12 +47,14 @@
                             @if(count($projects) > 0)
                                 @foreach($projects as $projectObj)
                                     <tr>
-                                        <td>{{ $projectObj->project_id }}</td>
+                                        <td>
+                                            <a href="{{ url('project/'.$projectObj->project_id) }}" title="{{ __('View Project') }}">{{ $projectObj->project_id }}</a>
+                                        </td>
                                         <td>
                                             <a href="{{ url('project/'.$projectObj->project_id) }}" title="{{ __('View Project') }}">{{ $projectObj->title }}</a>
                                         </td>
-                                        <td>{{ $projectObj->due_date }}</td>
-                                        <td>{{ $projectObj->AssignedTo->name }}</td>
+                                        <td>{{ date('d F, Y',strtotime($projectObj->due_date)) }}</td>
+                                        <td>{{ isset($projectObj->AssignedTo) && !empty($projectObj->AssignedTo) ?  $projectObj->AssignedTo->name : "N/A" }}</td>
                                         <td>{{ date('d F, Y',strtotime($projectObj->created_at)) }}</td>
                                     </tr>
                                 @endforeach
