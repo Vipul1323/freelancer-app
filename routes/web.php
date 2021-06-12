@@ -27,4 +27,10 @@ Route::any('profile-setup','ProfileController@completeProfile')->name('profile-s
 Route::middleware(['check-profile'])->group(function () {
     Route::get('/home', 'HomeController@index')->name('home')->middleware('auth');
 
+    Route::middleware(['role:Client'])->group(function () {
+        Route::any('project/new','ProjectsController@newProject')->name('project.new')->middleware('auth');
+    });
+
+    Route::get('projects','ProjectsController@index')->name('ProjectsController')->middleware('auth');
+
 });
