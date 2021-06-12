@@ -84,4 +84,24 @@ class ProjectsController extends Controller
         }
     }
 
+    public function addNote(Request $request){
+        try {
+            $formData = $request->all();
+            $noteObj                    = new ProjectHasNotes();
+            $noteObj->user_id           = Auth::user()->id;
+            $noteObj->note              = $formData['note'];
+            $noteObj->project_id        = $formData['project_id'];
+            if($noteObj->save()){
+                $response['success'] = __('Note added successfully');
+                $noteObj->postedBy = $noteObj->User->name;
+                $response['noteObj'] = $noteObj;
+            }else{
+                $response['error'] = __('Unable to add note. Please try again');
+            }
+            return response()->json($response);
+        } catch (\Exception $ex) {
+            $response['error'] = $ex->getMessage();
+            return response()->json($response);
+        }
+    }
 }

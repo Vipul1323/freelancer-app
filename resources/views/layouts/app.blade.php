@@ -82,6 +82,9 @@
             @yield('content')
         </main>
     </div>
+    <script type="text/javascript">
+        var token  = $('meta[name="csrf-token"]').attr('content');
+    </script>
     @yield('script')
 </body>
 </html>

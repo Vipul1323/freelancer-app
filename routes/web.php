@@ -32,4 +32,6 @@ Route::middleware(['check-profile'])->group(function () {
     });
     Route::get('projects','ProjectsController@index')->name('ProjectsController')->middleware('auth');
     Route::any('project/{project_id}','ProjectsController@viewProject')->name('project.view')->middleware('auth');
+
+    Route::post('add-note','ProjectsController@addNote')->name('add-note')->middleware('auth');
 });
